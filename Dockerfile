@@ -2,11 +2,13 @@ FROM ubuntu:14.04
 
 MAINTAINER Teruyuki Kobayashi version: 0.1
 
+RUN apt-get update && apt-get install -y git
+
 RUN git clone https://github.com/googlesamples/assistant-sdk-cpp.git
 
 ENV PROJECT_PATH $(pwd)
 
-RUN apt-get update && apt-get install -y git autoconf automake libtool build-essential curl unzip libasound2-dev libcurl4-openssl-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y autoconf automake libtool build-essential curl unzip libasound2-dev libcurl4-openssl-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN cd assistant-sdk-cpp && git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
 
