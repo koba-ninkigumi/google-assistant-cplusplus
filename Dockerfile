@@ -22,3 +22,13 @@ ENV LDFLAGS "$LDFLAGS -lm"
 
 RUN cd ${GRPC_PATH} && make clean && make && sudo make install && sudo ldconfig
 
+RUN cd ${PROJECT_PATH} && git clone https://github.com/googleapis/googleapis.git
+
+# https://github.com/googlesamples/assistant-sdk-cpp/issues/35
+RUN rm -rf ${PROJECT_PATH}/googleapis/google/ads
+
+RUN cd ${PROJECT_PATH}/googleapis && make LANGUAGE=cpp
+
+ENV GOOGLEAPIS_GENS_PATH ${PROJECT_PATH}/googleapis/gens
+
+RUN cd ${PROJECT_PATH} && make run_assistant
