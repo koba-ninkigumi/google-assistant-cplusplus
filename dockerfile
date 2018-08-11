@@ -18,4 +18,5 @@ RUN cd ${GRPC_PATH}/third_party/protobuf && ./autogen.sh && ./configure && make 
 
 ENV LDFLAGS "$LDFLAGS -lm"
 
+RUN cd ${GRPC_PATH} && make clean && make && sudo make install && sudo ldconfig
 
