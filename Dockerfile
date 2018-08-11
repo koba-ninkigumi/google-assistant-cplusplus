@@ -7,8 +7,7 @@ ENV GRPC_PATH ${PROJECT_PATH}/grpc
 ENV LDFLAGS "$LDFLAGS -lm"
 ENV GOOGLEAPIS_GENS_PATH googleapis/gens
 
-
-RUN apt update && apt install -y git autoconf automake libtool build-essential curl unzip libasound2-dev libcurl4-openssl-dev && apt clean && rm -rf /var/lib/apt/lists/* \
+RUN apt-get update && apt-get install -y git autoconf automake libtool build-essential curl unzip libasound2-dev libcurl4-openssl-dev && apt-get clean && rm -rf /var/lib/apt/lists/* \
 && git clone https://github.com/googlesamples/assistant-sdk-cpp.git \
 && cd assistant-sdk-cpp && git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc \
 && cd grpc && git submodule update --init \
