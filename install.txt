@@ -1,0 +1,55 @@
+docker pull ubuntu:14.04
+
+mkdir -p ~/var/log/docker
+
+
+docker run -it -d -p 18080:8080 -v ~/var/log/docker/logs:/share/logs --name gassistant ubuntu:14.04
+
+docker exec -it gassistant bash
+
+sudo apt-get update
+sudo apt-get install -y git
+
+git clone https://github.com/googlesamples/assistant-sdk-cpp.git
+cd assistant-sdk-cpp
+export PROJECT_PATH=$(pwd)
+
+sudo apt-get install -y autoconf automake libtool build-essential curl unzip
+sudo apt-get install -y libasound2-dev  # For ALSA sound output
+sudo apt-get install -y libcurl4-openssl-dev # CURL development library
+
+git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
+GRPC_PATH=${PROJECT_PATH}/grpc
+cd ${GRPC_PATH}
+
+git submodule update --init
+
+cd third_party/protobuf
+./autogen.sh && ./configure && make
+sudo make install
+sudo ldconfig
+
+export LDFLAGS="$LDFLAGS -lm"
+cd ${GRPC_PATH}
+make clean
+make
+sudo make install
+sudo ldconfig
+
+cd ${PROJECT_PATH}
+git clone https://github.com/googleapis/googleapis.git
+cd googleapis/
+
+rm -rf google/ads/ # https://github.com/googlesamples/assistant-sdk-cpp/issues/35
+
+make LANGUAGE=cpp
+
+export GOOGLEAPIS_GENS_PATH=${PROJECT_PATH}/googleapis/gens
+
+cd ${PROJECT_PATH}
+make run_assistant
+
+
+---
+sudo apt-get install -y libasound2-dev
+

@@ -33,4 +33,4 @@ ENV GOOGLEAPIS_GENS_PATH ${PROJECT_PATH}/googleapis/gens
 
 RUN ls assistant-sdk-cpp/googleapis/gens/google
 
-RUN cd ${PROJECT_PATH} && make run_assistant
+#RUN cd ${PROJECT_PATH} && make run_assistant
