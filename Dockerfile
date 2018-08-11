@@ -16,4 +16,5 @@ RUN apt-get update && apt-get install -y git autoconf automake libtool build-ess
 && cd ../ && git clone https://github.com/googleapis/googleapis.git \
 && rm -rf googleapis/google/ads \
 && cd googleapis && make LANGUAGE=cpp \
-&& cd ../ && make run_assistant
+&& cd ../ && make run_assistant \
+&& rm -rf grpc && rm -rf googleapis
