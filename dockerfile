@@ -12,7 +12,10 @@ RUN cd assistant-sdk-cpp && git clone -b $(curl -L https://grpc.io/release) http
 
 ENV GRPC_PATH ${PROJECT_PATH}/grpc
 
-RUN cd assistant-sdk-cpp/${GRPC_PATH} && git submodule update --init
+RUN cd ${GRPC_PATH} && git submodule update --init
 
-RUN cd assistant-sdk-cpp/${GRPC_PATH}/third_party/protobuf && ./autogen.sh && ./configure && make && sudo make install && sudo ldconfig
+RUN cd ${GRPC_PATH}/third_party/protobuf && ./autogen.sh && ./configure && make && sudo make install && sudo ldconfig
+
+ENV LDFLAGS "$LDFLAGS -lm"
+
 
