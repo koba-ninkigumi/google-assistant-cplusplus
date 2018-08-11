@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y git autoconf automake libtool build-ess
 && cd assistant-sdk-cpp && git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc \
 && cd grpc && git submodule update --init \
 && cd third_party/protobuf && ./autogen.sh && ./configure && make && sudo make install && sudo ldconfig \
-&& cd ../ && make clean && make && sudo make install && sudo ldconfig \
+&& cd ../../ && make clean && make && sudo make install && sudo ldconfig \
 && cd ../ && git clone https://github.com/googleapis/googleapis.git \
 && rm -rf googleapis/google/ads \
 && cd googleapis && make LANGUAGE=cpp \
