@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y git
 
 RUN git clone https://github.com/googlesamples/assistant-sdk-cpp.git
 
-ENV PROJECT_PATH /
+ENV PROJECT_PATH .
 
 RUN apt-get install -y autoconf automake libtool build-essential curl unzip libasound2-dev libcurl4-openssl-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
 
