@@ -6,11 +6,11 @@ RUN apt-get update && apt-get install -y git
 
 RUN git clone https://github.com/googlesamples/assistant-sdk-cpp.git
 
-ENV PROJECT_PATH .
+ENV PROJECT_PATH assistant-sdk-cpp
 
 RUN apt-get install -y autoconf automake libtool build-essential curl unzip libasound2-dev libcurl4-openssl-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN cd assistant-sdk-cpp && git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
+RUN cd ${PROJECT_PATH} && git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
 
 ENV GRPC_PATH ${PROJECT_PATH}/grpc
 
